@@ -57,82 +57,11 @@ function incrementHandler(counterId, value) {
     store.dispatch(incrementCounter(counterId, value))
 }
 function decrementHandler(counterId, value) {
-    store.dispatch(decrementCounter(counterId, value))
+   store.dispatch(decrementCounter(counterId, value))
 }
 
 
-
-
-//  reducer
-// function counterReducer(state = initialState, action) {
-
-//     if (action.type === ADD_COUNTER) {
-
-//         return [
-//             ...state,
-//             {
-//                 id: nextCounterId(state),
-//                 value: 0,
-//                 incrementBy: Math.floor(Math.random() * 10) + 10,
-//                 decrementBy: Math.floor(Math.random() * 5) + 5,
-//             },]
-//     };
-
-
-//     if (action.type === RESET_COUNTER) {
-//         return state.map((counter) => ({
-//             ...counter,
-//             value: 0,
-//         }));
-
-//     }
-
-
-//     if (action.type === INCREMENT_COUNT) {
-
-//         const { counterId, value } = action.payload
-
-//         return state.map((counter) => {
-//             if (counter.id === counterId) {
-//                 return {
-//                     ...counter,
-//                     value: counter.value + value,
-//                 }
-//             }
-//             return {
-//                 ...counter
-//             };
-//         });
-//     }
-
-
-
-//     if (action.type === DECREMENT_COUNT) {
-//         const { counterId, value } = action.payload
-
-//         return state.map((counter) => {
-//             if (counter.id === counterId) {
-//                 return {
-//                     ...counter,
-//                     value: counter.value - value,
-//                 }
-
-
-//             }
-//             return {
-//                 ...counter
-//             };
-
-//         });
-//     }
-
-//     return state;
-
-// }
-
-
-// 2nd reducer 
-
+// counter reducer
 function counterReducer(state = initialState, action) {
     if (action.type === ADD_COUNTER) {
         return [
