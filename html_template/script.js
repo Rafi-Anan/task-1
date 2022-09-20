@@ -47,17 +47,18 @@ const decrementCounter = (counterId, value) => {
 
 
 // counter id function
-function nextCounterId(counters) {
-    const maxId = counters.reduce((maxId, counter) => {
-        Math.max(counter.id, maxId), -1
-    })
-    return maxId + 1;
+// function nextCounterId(counter) {
+//     const maxId = counter.reduce((lastId, counter) => Math.max(counter.id, lastId), -1
+        
+//     );
+//     return maxId +1;
+// }
+
+function incrementHandler(id, value) {
+    store.dispatch(incrementCounter(id, value))
 }
-function incrementHandler(counterId, value) {
-    store.dispatch(incrementCounter(counterId, value))
-}
-function decrementHandler(counterId, value) {
-   store.dispatch(decrementCounter(counterId, value))
+function decrementHandler(id, value) {
+   store.dispatch(decrementCounter(id, value))
 }
 
 
@@ -67,12 +68,10 @@ function counterReducer(state = initialState, action) {
         return [
             ...state,
             {
-                id: nextCounterId(state),
+                id: state.length,
                 value: 0,
-                incrementBy: Math.floor(Math.
-                    random() * 10) + 10,
-                decrementBy: Math.floor(Math.
-                    random() * 10) + 5,
+                incrementBy: Math.floor(Math.random() * 10) + 1,
+                decrementBy: Math.floor(Math.random() * 10) + 5,
 
             },
         ]
@@ -94,24 +93,25 @@ function counterReducer(state = initialState, action) {
 
         const { counterId, value } = action.payload;
         return state.map((counter) => {
-         if (counter.id === counterId){
+         if (counter.id === counterId && counter.value < 20){
             return {
                 ...counter,
                 value: counter.value + value,
             }
          }
+        
          return { 
-            ...counter, 
+            ...counter
         }
         })
-
+        
     };
 
     if (action.type === DECREMENT_COUNT){
 
         const { counterId, value } = action.payload;
         return state.map((counter) => {
-         if (counter.id === counterId){
+         if (counter.id === counterId && counter.value > 0){
             return {
                 ...counter,
                 value: counter.value - value,
@@ -136,6 +136,15 @@ const countersContainer = document.getElementById("counters-container");
 
 const addCounterButton = document.getElementById("add-countr");
 const resetCounterButton = document.getElementById("reset-counter");
+// click listener
+addCounterButton.addEventListener("click", () => {
+    store.dispatch(addCounter());
+
+})
+
+resetCounterButton.addEventListener("click", () => {
+    store.dispatch(resetCounter())
+})
 
 //  render create
 
@@ -169,15 +178,7 @@ render();
 store.subscribe(render);
 
 
-// click listener
-addCounterButton.addEventListener("click", () => {
-    store.dispatch(addCounter());
 
-})
-
-resetCounterButton.addEventListener("click", () => {
-    store.dispatch(resetCounter())
-})
 
 
 
